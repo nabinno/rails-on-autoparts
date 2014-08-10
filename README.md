@@ -1,14 +1,14 @@
-Set-up Rails on Autoparts
-=========================
+How to Set-up Rails on Autoparts
+================================
 INDEX
 -----
-1. Set-up Docker/CentOS 6 x86_64
-2. Set-up Rails4 on Autoparts/Ubuntu 12.04
-3. Epilogue
+1. Dependencies
+2. Set-up Docker/CentOS 6 x86_64
+3. Set-up Rails4 on Autoparts/Ubuntu 12.04
 
 
-Dependencies
-------------
+1. Dependencies
+---------------
 ### servers
 - centos = CentOS 6 x86_64
 - railsubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
@@ -17,13 +17,13 @@ Dependencies
 ### scripts
 - [docker/docker](https://github.com/docker/docker)
 - [nitrous-io/autoparts](https://github.com/nitrous-io/autoparts)
-- [nabinno/rails-on-autoparts](https://github.com/nabinno/rails-on-autoparts)
-- [nabinno/dot-files](https://github.com/nabinno/dot-files)
 - [purcell/emacs.d](https://github.com/purcell/emacs.d)
+- [nabinno/dot-files](https://github.com/nabinno/dot-files)
+- [nabinno/rails-on-autoparts](https://github.com/nabinno/rails-on-autoparts)
 - etc.
 
 
-1. Set-up Docker/CentOS 6 x86_64
+2. Set-up Docker/CentOS 6 x86_64
 --------------------------------
 ```sh
 root@centos# adduser foo
@@ -59,7 +59,7 @@ foo@centos% sudo /etc/init.d/sshd restart
 ```
 
 
-2. Set-up Rails4 on Autoparts/Ubuntu 12.04
+3. Set-up Rails4 on Autoparts/Ubuntu 12.04
 ------------------------------------------
 ```sh
 ### build
@@ -87,12 +87,10 @@ client# ssh -t action@railsonubuntu zsh -p port-railsonubuntu
 ```
 
 
-3. Epilogue
------------
+EPILOGUE
+--------
 >     A whale! 
 >     Down it goes, and more, and more
 >     Up goes its tail!
 >     
 >     -Busan Yosa
-
-Enjoy
