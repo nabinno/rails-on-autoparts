@@ -93,4 +93,4 @@ EPILOGUE
 >     Down it goes, and more, and more
 >     Up goes its tail!
 >     
->     -Busan Yosa
+>     -Buson Yosa
