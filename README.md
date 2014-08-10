@@ -89,10 +89,10 @@ client# ssh -t action@railsonubuntu zsh -p port-railsonubuntu
 
 3. Epilogue
 -----------
-> A whale! 
-> Down it goes, and more, and more
-> Up goes its tail!
-> 
-> -Busan Yosa
+>     A whale! 
+>     Down it goes, and more, and more
+>     Up goes its tail!
+>     
+>     -Busan Yosa
 
 Enjoy
