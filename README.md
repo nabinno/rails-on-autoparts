@@ -11,7 +11,7 @@ INDEX
 ---------------
 ### servers
 - centos = CentOS 6 x86_64
-- railsubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
+- railsonubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
 - client = Client PC
 
 ### scripts
