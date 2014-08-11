@@ -4,7 +4,6 @@ RUN apt-get update; apt-get install -y \
   emacs \
   openssh-server \
   screen \
-  sudo \
   tree \
   zsh
 
@@ -21,7 +20,6 @@ RUN find ~/dotfiles -maxdepth 1 -mindepth 1 | xargs -i mv -f {} ~/
 RUN rm -fr dotfiles .git README.md
 
 # environmental variables
-RUN sed -i "s/^\(root.*\)$/\1\naction\tALL=(ALL)\tALL/g" /etc/sudoers
 RUN sed -i "s/^#Protocol 2,1/Protocol 2/g" /etc/ssh/sshd_config
 RUN sed -i "s/^#SyslogFacility AUTH/SyslogFacility AUTH/g" /etc/ssh/sshd_config
 RUN sed -i "s/^\(PermitRootLogin yes\)/#\1\nPermitRootLogin without-password/g" /etc/ssh/sshd_config
