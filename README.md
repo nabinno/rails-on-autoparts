@@ -67,7 +67,7 @@ foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubuserco
 foo@centos% docker build -t nabinno/rails-on-autoparts https://raw.githubusercontent.com/nabinno/rails-on-autoparts/master/Dockerfile
 
 ### start sshd server
-foo@centos% docker run -t -d -P nabinno/rails-on-autoparts
+foo@centos% docker run -t -d -P nabinno/rails-on-autoparts /usr/sbin/sshd -D
 
 ### get port-railsonubuntu
 foo@centos% docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
