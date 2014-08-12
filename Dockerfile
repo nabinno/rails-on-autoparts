@@ -1,6 +1,7 @@
 FROM nitrousio/autoparts-builder
 
 RUN apt-get update; apt-get install -y \
+  cron \
   emacs \
   openssh-server \
   screen \
@@ -29,6 +30,7 @@ RUN echo 'root:screencast' | chpasswd
 RUN echo 'action:nitrousio' | chpasswd
 RUN chsh -s /usr/bin/zsh root
 RUN chmod 777 /var/run/screen
+RUN chmod 777 -R /var/spool/cron
 RUN chown -R action:action /home/action
 
 # sshd
