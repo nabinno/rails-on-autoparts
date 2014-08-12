@@ -9,11 +9,15 @@ RUN apt-get update; apt-get install -y \
   zsh
 
 # autoparts
-RUN parts install nodejs
-RUN parts install ruby2.1
-RUN parts install chruby
-# RUN parts install postgresql
-RUN parts install heroku_toolbelt
+RUN parts install \
+    nodejs \
+    ruby2.1 \
+    chruby \
+    heroku_toolbelt \
+    # postgresql
+
+# ruby
+RUN gem install rails
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
