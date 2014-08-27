@@ -23,13 +23,18 @@ RUN parts install \
     heroku_toolbelt \
     # postgresql
 
-# ruby
-RUN gem install rails
-
 # npm
 RUN npm install -g \
+    coffee-script \
+    bower \
     grunt-cli \
+    requirejs \
     less
+
+# ruby
+RUN gem install \
+    rails \
+    half-pipe
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
