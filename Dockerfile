@@ -1,12 +1,19 @@
 FROM nitrousio/autoparts-builder
 
 RUN apt-get update; apt-get install -y \
-  cron \
-  emacs \
-  openssh-server \
-  screen \
-  tree \
-  zsh
+    cron \
+    openssh-server \
+    screen \
+    tree \
+    zsh \
+    software-properties-common \
+    python-software-properties
+RUN add-apt-repository -y \
+    ppa:cassou/emacs
+RUN apt-get update; apt-get install -y \
+    emacs24 \
+    emacs24-el \
+    emacs24-common-non-dfsg
 
 # autoparts
 RUN parts install \
@@ -18,6 +25,11 @@ RUN parts install \
 
 # ruby
 RUN gem install rails
+
+# npm
+RUN npm install -g \
+    grunt-cli \
+    less
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
