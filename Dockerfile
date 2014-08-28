@@ -25,7 +25,6 @@ RUN parts install \
 
 # npm
 RUN npm install -g \
-    coffee-script \
     bower \
     grunt-cli \
     requirejs \
@@ -33,8 +32,7 @@ RUN npm install -g \
 
 # ruby
 RUN gem install \
-    rails \
-    half-pipe
+    rails
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
