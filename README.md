@@ -18,7 +18,7 @@ INDEX
 - [docker/docker](https://github.com/docker/docker)
 - [nitrous-io/autoparts](https://github.com/nitrous-io/autoparts)
 - [purcell/emacs.d](https://github.com/purcell/emacs.d)
-- [nabinno/dot-files](https://github.com/nabinno/dot-files)
+- [nabinno/dotfiles](https://github.com/nabinno/dotfiles)
 - [nabinno/rails-on-autoparts](https://github.com/nabinno/rails-on-autoparts)
 - etc.
 
@@ -67,7 +67,7 @@ foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubuserco
 foo@centos% docker build -t nabinno/rails-on-autoparts https://raw.githubusercontent.com/nabinno/rails-on-autoparts/master/Dockerfile
 
 ### start sshd server
-foo@centos% docker run -t -d -P nabinno/rails-on-autoparts /usr/sbin/sshd -D
+foo@centos% docker run -t -d -p 30000:3000 -P nabinno/play-on-autoparts /usr/sbin/sshd -D
 
 ### get port-railsonubuntu
 foo@centos% docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
@@ -78,14 +78,9 @@ client# ssh-keygen -t rsa
 client# ssh-copy-id -i ~/.ssh/id_rsa.pub action@railsonubuntu -p port-railsonubuntu
 client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_action@railsonubuntu
 client# ssh -t action@railsonubuntu(centos.host) zsh -p port-railsonubuntu
+action@railsonubuntu# sudo sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
+action@railsonubuntu# echo 'action:baz' | sudo chpasswd
 foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -i -t nabinno/rails-on-autoparts zsh
-root@railsonubuntu# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
-root@railsonubuntu# echo 'action:baz' | chpasswd
-root@railsonubuntu# /etc/init.d/ssh restart
-foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -t -d -P nabinno/rails-on-autoparts /usr/sbin/sshd -D
-client# ssh -t action@railsonubuntu zsh -p port-railsonubuntu
 ```
 
 

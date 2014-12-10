@@ -5,37 +5,38 @@ RUN apt-get update; apt-get install -y \
     openssh-server \
     screen \
     tree \
-    zsh \
-    software-properties-common \
-    python-software-properties
-RUN add-apt-repository -y \
-    ppa:cassou/emacs
-RUN apt-get update; apt-get install -y \
-    emacs24 \
-    emacs24-el \
-    emacs24-common-non-dfsg
+    sudo \
+    vim \
+    zsh
 
 # autoparts
 RUN parts install \
     nodejs \
     ruby2.1 \
     chruby \
-    heroku_toolbelt \
+    heroku_toolbelt
     # postgresql
 
 # npm
-RUN npm install -g \
+RUN /home/action/.parts/bin/npm install -g \
     bower \
     grunt-cli \
     requirejs \
     less
+
+# emacs
+ENV EMACS_VERSION 24.3
+RUN wget http://core.ring.gr.jp/pub/GNU/emacs/emacs-$EMACS_VERSION.tar.gz
+RUN tar zxf emacs-$EMACS_VERSION.tar.gz
+RUN cd emacs-$EMACS_VERSION; ./configure --with-xpm=no --with-gif=no; make; make install; cd ~
+RUN rm -fr emacs-$EMACS_VERSION*
 
 # ruby
 RUN gem install \
     rails
 
 # dot files
-RUN git clone https://github.com/nabinno/dot-files.git
+RUN git clone https://github.com/nabinno/dotfiles.git
 RUN find ~/dotfiles -maxdepth 1 -mindepth 1 | xargs -i mv -f {} ~/
 RUN rm -fr dotfiles .git README.md
 
@@ -45,6 +46,10 @@ RUN sed -i "s/^#SyslogFacility AUTH/SyslogFacility AUTH/g" /etc/ssh/sshd_config
 RUN sed -i "s/^\(PermitRootLogin yes\)/#\1\nPermitRootLogin without-password/g" /etc/ssh/sshd_config
 RUN sed -i "s/^\(ChallengeResponseAuthentication no\)/#\1\nChallengeResponseAuthentication yes/g" /etc/ssh/sshd_config
 # RUN sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication yes/g" /etc/ssh/sshd_config
+RUN sed -i "s/^\(PATH=\"\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin:\/usr\/games\"\)$/\1\nLC_ALL=en_US.UTF-8/g" /etc/environment
+RUN chmod 640 /etc/sudoers
+RUN sed -i "s/^\(# User privilege specification\)$/\1\naction  ALL=(ALL)       ALL/g" /etc/sudoers
+RUN chmod 440 /etc/sudoers
 RUN echo 'root:screencast' | chpasswd
 RUN echo 'action:nitrousio' | chpasswd
 RUN chsh -s /usr/bin/zsh root
