@@ -1,5 +1,5 @@
 # Example of Setting up Rails on Autoparts
-## Dependencies
+## 1. Dependencies
 ### servers
 - centos        = CentOS 6 x86_64
 - railsonubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
@@ -50,7 +50,7 @@ foo@centos% sudo sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthenti
 foo@centos% sudo /etc/init.d/sshd restart
 ```
 
-## Setup Rails4 on Autoparts/Ubuntu 12.04
+## 3. Setup Rails4 on Autoparts/Ubuntu 12.04
 Build
 ```
 foo@centos% docker build -t nabinno/rails-on-autoparts https://raw.githubusercontent.com/nabinno/rails-on-autoparts/master/Dockerfile
