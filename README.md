@@ -1,55 +1,47 @@
-How to Set-up Rails on Autoparts
-================================
-INDEX
------
-1. Dependencies
-2. Set-up Docker/CentOS 6 x86_64
-3. Set-up Rails4 on Autoparts/Ubuntu 12.04
-
-
-1. Dependencies
----------------
+# Example of Setting up Rails on Autoparts
+## Dependencies
 ### servers
-- centos = CentOS 6 x86_64
+- centos        = CentOS 6 x86_64
 - railsonubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
-- client = Client PC
+- client        = Client PC
 
 ### scripts
 - [docker/docker](https://github.com/docker/docker)
 - [nitrous-io/autoparts](https://github.com/nitrous-io/autoparts)
-- [purcell/emacs.d](https://github.com/purcell/emacs.d)
-- [nabinno/dotfiles](https://github.com/nabinno/dotfiles)
 - [nabinno/rails-on-autoparts](https://github.com/nabinno/rails-on-autoparts)
 - etc.
 
-
-2. Set-up Docker/CentOS 6 x86_64
---------------------------------
-```sh
+## 2. Setup Docker/CentOS 6 x86_64
+```
 root@centos# adduser foo
 root@centos# echo foo | passwd bar --stdin
-
-### set env for sudo
+```
+Setup environment for sudo
+```
 root@centos# sed -i "s/^\(root.*\)$/\1\n000\tALL=(ALL)\tALL/g" /etc/sudoers
-
-### set env for auth
+```
+Setup environment for authentication
+```
 root@centos# sed -i "s/^\(#PermitRootLogin yes\)/\1\nPermitRootLogin no/g" /etc/ssh/sshd_config
 root@centos# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
 root@centos# sed -i "s/^\(#ChallengeResponseAuthentication yes\)/\1\nChallengeResponseAuthentication no/g" /etc/ssh/sshd_config
 root@centos# sed -i "s/^\(#RhostsRSAAuthentication no\)/\1\nRhostsRSAAuthentication no/g" /etc/ssh/sshd_config
 root@centos# sed -i "s/^\(#PermitEmptyPasswords no\)/\1\nPermitEmptyPasswords no/g" /etc/ssh/sshd_config
-
-### set env for other
+```
+Setup environment for other
+```
 root@centos# sed -i "s/^\(#Protocol 2,1\)/\1\nProtocol 2/g" /etc/ssh/sshd_config
 root@centos# sed -i "s/^\(#SyslogFacility AUTH\)/\1\nSyslogFacility AUTHPRIV/g" /etc/ssh/sshd_config
-
-### install docker
+```
+Install docker
+```
 root@centos# yum install docker-io -y
 root@centos# service docker start
 root@centos# chkconfig docker on
 foo@centos% alias docker='sudo docker'
-
-### set env for auth of password
+```
+Setup environment for authentication of password
+```
 client# ssh-keygen -t rsa
 client# ssh-copy-id -i ~/.ssh/id_rsa.pub foo@centos.host
 client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_foo@centos
@@ -58,22 +50,22 @@ foo@centos% sudo sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthenti
 foo@centos% sudo /etc/init.d/sshd restart
 ```
 
-
-3. Set-up Rails4 on Autoparts/Ubuntu 12.04
-------------------------------------------
-```sh
-### build
-foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubusercontent.com/nitrous-io/autoparts/master/Dockerfile
+## Setup Rails4 on Autoparts/Ubuntu 12.04
+Build
+```
 foo@centos% docker build -t nabinno/rails-on-autoparts https://raw.githubusercontent.com/nabinno/rails-on-autoparts/master/Dockerfile
-
-### start sshd server
+```
+Start sshd server
+```
 foo@centos% docker run -t -d -p 30000:3000 -P nabinno/play-on-autoparts /usr/sbin/sshd -D
-
-### get port-railsonubuntu
+```
+Get port-railsonubuntu
+```
 foo@centos% docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
 foo@centos% docker inspect --format {{.NetworkSettings.Ports}} $(docker ps -l -q)
-
-### change password of ubuntu user
+```
+Change password of ubuntu user
+```
 client# ssh-keygen -t rsa
 client# ssh-copy-id -i ~/.ssh/id_rsa.pub action@railsonubuntu -p port-railsonubuntu
 client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_action@railsonubuntu
@@ -83,11 +75,11 @@ action@railsonubuntu# echo 'action:baz' | sudo chpasswd
 foo@centos% docker commit $(docker ps -l -q) container_id
 ```
 
+---
 
-EPILOGUE
---------
->     A whale! 
+## EPILOGUE
+>     A whale!
 >     Down it goes, and more, and more
 >     Up goes its tail!
->     
+>
 >     -Buson Yosa
