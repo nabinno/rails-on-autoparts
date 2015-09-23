@@ -72,8 +72,11 @@ RUN apt-get update; apt-get install -y \
   libxt-dev \
   libxt6 \
   libyaml-dev \
+  mysql-server \
   openssh-server \
   openssl \
+  postgresql \
+  postgresql-contrib \
   psmisc \
   ruby1.9.3 \
   s3cmd \
