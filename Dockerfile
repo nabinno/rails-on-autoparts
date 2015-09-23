@@ -116,7 +116,8 @@ RUN locale-gen en_US.UTF-8
 RUN echo 'root:screencast' | chpasswd
 RUN echo 'action:nitrousio' | chpasswd
 RUN chsh -s /usr/bin/zsh root
-RUN chmod 777 /var/run/screen
+RUN chsh -s /usr/bin/zsh action
+RUN chmod 775 /var/run/screen
 RUN chmod 777 -R /var/spool/cron
 RUN chown -R action:action /home/action
 
