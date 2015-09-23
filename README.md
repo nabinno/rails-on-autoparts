@@ -1,17 +1,25 @@
-# Example of Setting up Rails on Autoparts
-## 1. Dependencies
-### servers
+# Rails on Autoparts --- Dockerfile and Docker image configuration
+## Usage
+```
+docker run -t -d -p 30000:3000 -P quay.io/nabinno/rails-on-autoparts /usr/sbin/sshd -D
+```
+
+---
+
+## Example of Setting up Rails on Autoparts
+### 1. Dependencies
+#### servers
 - centos        = CentOS 6 x86_64
 - railsonubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
 - client        = Client PC
 
-### scripts
+#### scripts
 - [docker/docker](https://github.com/docker/docker)
 - [nitrous-io/autoparts](https://github.com/nitrous-io/autoparts)
 - [nabinno/rails-on-autoparts](https://github.com/nabinno/rails-on-autoparts)
 - etc.
 
-## 2. Setup Docker/CentOS 6 x86_64
+### 2. Setup Docker/CentOS 6 x86_64
 ```
 root@centos# adduser foo
 root@centos# echo foo | passwd bar --stdin
@@ -50,14 +58,10 @@ foo@centos% sudo sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthenti
 foo@centos% sudo /etc/init.d/sshd restart
 ```
 
-## 3. Setup Rails4 on Autoparts/Ubuntu 12.04
-Build
+### 3. Setup Rails4 on Autoparts/Ubuntu 12.04
+Pull and run sshd server
 ```
-foo@centos% docker build -t nabinno/rails-on-autoparts https://raw.githubusercontent.com/nabinno/rails-on-autoparts/master/Dockerfile
-```
-Start sshd server
-```
-foo@centos% docker run -t -d -p 30000:3000 -P nabinno/play-on-autoparts /usr/sbin/sshd -D
+foo@centos% docker run -t -d -p 30000:3000 -P quay.io/nabinno/rails-on-autoparts /usr/sbin/sshd -D
 ```
 Get port-railsonubuntu
 ```
