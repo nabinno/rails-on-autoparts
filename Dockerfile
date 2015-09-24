@@ -1,4 +1,7 @@
 FROM ubuntu:12.04
+ENV HOME /home/action
+ENV PATH /home/action/.parts/autoparts/bin:${PATH}
+ENV AUTOPARTS_DEV true
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
@@ -96,15 +99,14 @@ RUN apt-get update; apt-get install -y \
   zlib1g-dev \
   zsh
 
+WORKDIR /home/action
 RUN adduser --disabled-password action
 RUN mkdir -p /home/action/.parts
 RUN git clone https://github.com/nitrous-io/autoparts.git /home/action/.parts/autoparts
+RUN parts install \
+    chruby \
+    ruby2.2
 RUN chown -R action:action /home/action
-
-ENV PATH /home/action/.parts/autoparts/bin:${PATH}
-ENV AUTOPARTS_DEV true
-ENV HOME /home/action
-WORKDIR /home/action
 
 RUN sed -i "s/^#Protocol 2,1/Protocol 2/g" /etc/ssh/sshd_config
 RUN sed -i "s/^#SyslogFacility AUTH/SyslogFacility AUTH/g" /etc/ssh/sshd_config
