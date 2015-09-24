@@ -39,6 +39,7 @@ RUN apt-get update; apt-get install -y \
   libevent-dev \
   libevent-extra-1.4-2 \
   libffi-dev \
+  libffi-dev \
   libgdbm-dev \
   libglib2.0-dev \
   libglib2.0-dev \
