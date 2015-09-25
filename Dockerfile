@@ -66,6 +66,7 @@ RUN apt-get update; apt-get install -y \
   libpng12-dev \
   libpq-dev \
   libqt4-dev \
+  libreadline-dev \
   libreadline6-dev \
   libsndfile1-dev \
   libsqlite3-dev \
